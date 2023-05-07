@@ -11,7 +11,7 @@ function App() {
   });
   return (
     <div
-      className='w-screen h-screen grid grid-cols-2 border border-green-700 min-w-[1440px]'
+      className='w-screen h-screen flex border border-green-700 min-w-[1440px]'
     >
       <JSONManager
         content={content}

@@ -20,7 +20,6 @@ export const JSONManager = ({
     const blob = new Blob([data], { type: "application/json" });
     const href = URL.createObjectURL(blob);
     var a = document.createElement('a');
-    console.log(data)
     a.setAttribute("href", href);
     a.setAttribute("download", (((content as JSONContent)?.json as any)?.["title"] ?? "myTemplate") + ".json");
 
@@ -31,7 +30,7 @@ export const JSONManager = ({
 
   return (
     <div
-      className='border border-red-700 flex flex-col space-y-8'
+      className='border border-red-700 flex flex-col space-y-8 grow'
     >
       <div className="w-full h-10 border border-orange-700 flex items-center justify-between">
         <input
@@ -40,7 +39,6 @@ export const JSONManager = ({
             const fileReader = new FileReader();
             !!e.target?.files?.[0] && fileReader.readAsText(e.target?.files?.[0], "UTF-8");
             fileReader.onload = e => {
-              console.log("e.target.result", e.target?.result);
               try {
                 const newJSON = e.target?.result && JSON.parse(e.target?.result as string)
                 if (newJSON) {
