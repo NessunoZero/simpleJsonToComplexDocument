@@ -1,18 +1,14 @@
-import { useState } from "react";
 import VanillaJSONEditor from "./VanillaJSONEditor"
 import { Content, JSONContent, TextContent } from "vanilla-jsoneditor";
 
 
-export const JSONManager = () => {
-
-  const [content, setContent] = useState<Content>({
-    json: {
-      title: "My awesome Doc",
-      contents: [
-      ]
-    },
-    text: undefined
-  });
+export const JSONManager = ({
+  content,
+  setContent,
+}: {
+  content: Content,
+  setContent: (content: Content) => void
+}) => {
 
   const onClickDownload = () => {
     var data = (
@@ -45,22 +41,21 @@ export const JSONManager = () => {
             !!e.target?.files?.[0] && fileReader.readAsText(e.target?.files?.[0], "UTF-8");
             fileReader.onload = e => {
               console.log("e.target.result", e.target?.result);
-              try{
+              try {
                 const newJSON = e.target?.result && JSON.parse(e.target?.result as string)
-                if(newJSON){
+                if (newJSON) {
                   setContent({
                     json: newJSON
                   })
                 }
-              }catch(e){
+              } catch (e) {
                 console.log(e)
               }
             };
           }}
           value={""}
           className="cursor-pointer"
-        >
-        </input>
+        />
         <button
           onClick={() => onClickDownload()}
           className="border border-purple-700 p-2 cursor-pointer"

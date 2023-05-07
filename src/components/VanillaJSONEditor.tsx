@@ -6,10 +6,7 @@ export default function SvelteJSONEditor(props: JSONEditorPropsOptional) {
   const [editor, setEditor] = useState<JSONEditor | undefined>(undefined)
 
   useEffect(() => {
-    console.log('init component')
     if (!!refContainer.current && !editor) {
-      // create editor
-      console.log("create editor", refContainer.current);
       setEditor(new JSONEditor({
         target: refContainer.current,
         props
@@ -19,7 +16,6 @@ export default function SvelteJSONEditor(props: JSONEditorPropsOptional) {
     return () => {
       // destroy editor
       if (editor) {
-        console.log("destroy editor");
         editor.destroy();
         setEditor(undefined)
       }
