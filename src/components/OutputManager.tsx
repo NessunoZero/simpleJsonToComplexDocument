@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Content, JSONContent, TextContent } from "vanilla-jsoneditor"
+import { Content, JSONContent } from "vanilla-jsoneditor"
 import JsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { OutputRender } from "./OutputRender";
@@ -10,12 +10,6 @@ export const OutputManager = ({
   content: Content;
 }) => {
   const ref = useRef<HTMLDivElement>(null)
-  const stringToShow = (
-    'json' in content ?
-      JSON.stringify((content as JSONContent)?.json, undefined, 2)
-      :
-      (content as TextContent).text
-  );
 
   const onClickDownload = async () => {
     if (!ref.current) {
@@ -53,7 +47,7 @@ export const OutputManager = ({
     <div
       className='w-fit h-full flex flex-col items-center justify-center space-y-8'
     >
-      <div className="w-fit h-10 border border-orange-700 flex items-center justify-end">
+      <div className="w-full h-10 border border-orange-700 flex items-center justify-end">
         <button
           onClick={() => onClickDownload()}
           className="border border-purple-700 p-2 cursor-pointer"
@@ -61,11 +55,13 @@ export const OutputManager = ({
           Download
         </button>
       </div>
-      <div
-        className="w-[21cm] min-h-[29.7cm] p-[2cm] border border-purple-700"
-        ref={ref}
-      >
-        <OutputRender content={content} />
+      <div className="w-fit flex flex-col grow overflow-y-auto">
+        <div
+          className="w-[21cm] min-h-[29.7cm] p-[2cm] border border-purple-700"
+          ref={ref}
+        >
+          <OutputRender content={content} />
+        </div>
       </div>
     </div>
   )

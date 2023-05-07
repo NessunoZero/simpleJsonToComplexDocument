@@ -31,31 +31,11 @@ export const initialJSON: validJSON = {
       type: "title",
       content: "Is an awesome Doc"
     },
-    {
-      type: "title",
-      content: "Is an awesome Doc"
-    },
-    {
-      type: "title",
-      content: "Is an awesome Doc"
-    },
-    {
-      type: "title",
-      content: "Is an awesome Doc"
-    },
-    {
-      type: "title",
-      content: "Is an awesome Doc"
-    },
-    {
-      type: "title",
-      content: "Is an awesome Doc"
-    },
   ],
   structure: {
     title: {
       tag: "h1",
-      className: "uppercase text-center text-xl p-0 m-0 text-blue-700"
+      className: "uppercase text-center text-xl p-0 m-0 text-black"
     }
   }
 }
