@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Content, JSONContent, TextContent } from "vanilla-jsoneditor"
 import JsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { OutputRender } from "./OutputRender";
 
 export const OutputManager = ({
   content,
@@ -64,7 +65,7 @@ export const OutputManager = ({
         className="max-w-4xl h-full"
         ref={ref}
       >
-        {stringToShow}
+        <OutputRender content={content} />
       </div>
     </div>
   )

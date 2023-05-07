@@ -3,22 +3,24 @@ export type TagType = (
   "p" | "ul" | "li" |
   "row" | "div" | "img" |
   "a" | "span"
-)
+);
 
 export type ContentType = {
   type: string;
   content: ContentType | string
-}
+};
+
+export type StructureType = {
+  [key: string]: {
+    tag: TagType;
+    className?: string;
+  };
+};
 
 export type validJSON = {
   title: string;
   contents: ContentType[];
-  structure: {
-    [key: string]: {
-      tag: TagType;
-      className?: string;
-    };
-  }
+  structure: StructureType;
 }
 
 
@@ -28,7 +30,27 @@ export const initialJSON: validJSON = {
     {
       type: "title",
       content: "Is an awesome Doc"
-    }
+    },
+    {
+      type: "title",
+      content: "Is an awesome Doc"
+    },
+    {
+      type: "title",
+      content: "Is an awesome Doc"
+    },
+    {
+      type: "title",
+      content: "Is an awesome Doc"
+    },
+    {
+      type: "title",
+      content: "Is an awesome Doc"
+    },
+    {
+      type: "title",
+      content: "Is an awesome Doc"
+    },
   ],
   structure: {
     title: {
