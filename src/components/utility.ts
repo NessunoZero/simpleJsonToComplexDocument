@@ -11,20 +11,28 @@ export type TagType =
   | "a"
   | "span";
 
-export type ContentType = {
+export type DataType = {
+  [key: string]: string;
+};
+
+export type ReuseStructureItem = {
   type: string;
-  content: ContentType[] | string;
+  data: DataType;
+  children?: ReuseStructureItem[];
 };
 
 export type StructureType = {
   [key: string]: {
     tag: TagType;
     className?: string;
+    data?: string[];
+    children?: ReuseStructureItem[];
   };
 };
 
-export type DataType = {
-  [key: string]: string;
+export type ContentType = {
+  type: string;
+  data: DataType;
 };
 
 export type ValidJSON = {
@@ -39,13 +47,39 @@ export const initialJSON: ValidJSON = {
   contents: [
     {
       type: "title",
-      content: "Is an awesome Doc",
+      data: { content: "Awesome params managment" },
+    },
+    {
+      type: "twoSides",
+      data: {
+        left: "test left",
+        right: "test right",
+      },
     },
   ],
   structure: {
     title: {
       tag: "h1",
       className: "uppercase text-center text-xl p-0 m-0 text-black",
+    },
+    twoSides: {
+      tag: "div",
+      className: "w-full flex items-center justify-between",
+      data: ["left", "right"],
+      children: [
+        {
+          type: "oneChild",
+          data: { content: "left" },
+        },
+        {
+          type: "oneChild",
+          data: { content: "right" },
+        },
+      ],
+    },
+    oneChild: {
+      tag: "p",
+      className: "capitalize",
     },
   },
   data: {},

@@ -16,32 +16,61 @@ export const ItemRender = ({
     const itemType = structure[item.type];
     const tagName = itemType.tag;
     const className = itemType.className;
-    const children =
-      typeof item.content === "string"
-        ? item.content
-        : item.content.map((item, key) => (
-            <ItemRender
-              item={item}
-              structure={structure}
-              key={key}
-              data={data}
-            />
-          ));
-    if (
-      ["a", "div", "h1", "h2", "h3", "li", "p", "row", "span", "ul"].includes(
-        itemType.tag
-      )
-    ) {
-      return createElement(tagName, { className, children });
-    } else if (
-      "img" === itemType.tag &&
-      typeof item.content === "string" &&
-      item.content in data
-    ) {
-      return createElement(tagName, { className, src: data[item.content] });
+    const children = itemType.children;
+    const content = "content" in item.data ? item.data.content : undefined;
+    const dataRefer =
+      "dataRefer" in item.data ? item.data.dataRefer : undefined;
+    if (children && itemType.tag === "img") {
+      alert(`img tag could not have children check ${item.type} in structure`);
+      return null;
     } else {
-      return <></>;
+      if (
+        ["a", "div", "h1", "h2", "h3", "li", "p", "row", "span", "ul"].includes(
+          itemType.tag
+        )
+      ) {
+        if (!children) {
+          return createElement(tagName, { className, children: content });
+        } else {
+          const trueChildren = children.map((child, index) => {
+            const childData = Object.entries(child.data).reduce(
+              (acc, [key, value]) => {
+                if (!(value in item.data)) {
+                  return acc;
+                } else {
+                  acc[key] = item.data[value];
+                }
+                return acc;
+              },
+              {} as DataType
+            );
+            return (
+              <ItemRender
+                structure={structure}
+                item={{
+                  data: childData,
+                  type: child.type,
+                }}
+                data={data}
+                key={index}
+              />
+            );
+          });
+          return createElement(tagName, { className, children: trueChildren });
+        }
+      } else if ("img" === itemType.tag) {
+        if (!dataRefer) {
+          alert(`dataRefer is needed for img tag`);
+          return null;
+        }
+        if (!(dataRefer in data)) {
+          alert(`${dataRefer} is not in data of input JSON`);
+          return null;
+        }
+        return createElement(tagName, { className, src: data[dataRefer] });
+      }
     }
+    return <></>;
   }
 };
 
