@@ -1,6 +1,7 @@
 import VanillaJSONEditor from "./VanillaJSONEditor";
 import { Content, JSONContent, TextContent } from "vanilla-jsoneditor";
 import { ValidJSON, initialJSON } from "./utility";
+import { Button, buttonClassName } from "./Button";
 
 export const JSONManager = ({
   content,
@@ -40,7 +41,7 @@ export const JSONManager = ({
       <div className="w-full border border-orange-700 flex items-center justify-between py-4 px-6 whitespace-nowrap flex-wrap gap-4">
         <div className="flex items-center gap-4 flex-wrap">
           <label htmlFor="jsonFile">
-            <div className="border border-purple-700 p-2 cursor-pointer">
+            <div className={buttonClassName}>
               Upload JSON
             </div>
           </label>
@@ -71,7 +72,7 @@ export const JSONManager = ({
             accept="application/JSON"
           />
           <label htmlFor="imgFile">
-            <div className="border border-purple-700 p-2 cursor-pointer">
+            <div className={buttonClassName}>
               Upload Image
             </div>
           </label>
@@ -121,7 +122,7 @@ export const JSONManager = ({
           />
         </div>
         <div className="flex items-center gap-4 flex-wrap">
-          <button
+          <Button
             onClick={() => {
               try {
                 setContentObj(JSON.parse((content as TextContent).text));
@@ -137,24 +138,15 @@ export const JSONManager = ({
                 }
               }
             }}
-            className="border border-purple-700 p-2 cursor-pointer"
-          >
-            Reload from json
-          </button>
+            content="Reload from json"
+          />
           {!showOutput && (
-            <button
+            <Button
               onClick={() => setShowPrintable(true)}
-              className="border border-purple-700 p-2 cursor-pointer"
-            >
-              Printable preview
-            </button>
+              content="Printable preview"
+            />
           )}
-          <button
-            onClick={() => onClickDownload()}
-            className="border border-purple-700 p-2 h-10 cursor-pointer"
-          >
-            Download
-          </button>
+          <Button onClick={() => onClickDownload()} content="Download" />
         </div>
       </div>
       <VanillaJSONEditor
