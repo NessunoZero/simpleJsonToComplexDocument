@@ -1,13 +1,19 @@
-export type TagType = (
-  "h1" | "h2" | "h3" |
-  "p" | "ul" | "li" |
-  "row" | "div" | "img" |
-  "a" | "span"
-);
+export type TagType =
+  | "h1"
+  | "h2"
+  | "h3"
+  | "p"
+  | "ul"
+  | "li"
+  | "row"
+  | "div"
+  | "img"
+  | "a"
+  | "span";
 
 export type ContentType = {
   type: string;
-  content: ContentType | string
+  content: ContentType[] | string;
 };
 
 export type StructureType = {
@@ -17,25 +23,30 @@ export type StructureType = {
   };
 };
 
-export type validJSON = {
+export type DataType = {
+  [key: string]: string;
+};
+
+export type ValidJSON = {
   title: string;
   contents: ContentType[];
   structure: StructureType;
-}
+  data: DataType;
+};
 
-
-export const initialJSON: validJSON = {
+export const initialJSON: ValidJSON = {
   title: "My awesome Doc",
   contents: [
     {
       type: "title",
-      content: "Is an awesome Doc"
+      content: "Is an awesome Doc",
     },
   ],
   structure: {
     title: {
       tag: "h1",
-      className: "uppercase text-center text-xl p-0 m-0 text-black"
-    }
-  }
-}
+      className: "uppercase text-center text-xl p-0 m-0 text-black",
+    },
+  },
+  data: {},
+};
