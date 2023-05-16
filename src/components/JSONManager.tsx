@@ -37,7 +37,7 @@ export const JSONManager = ({
   };
 
   return (
-    <div className="border border-red-700 flex flex-col space-y-8 grow">
+    <div className="w-full border border-red-700 flex flex-col space-y-8 grow">
       <div className="w-full border border-orange-700 flex items-center justify-between py-4 px-6 whitespace-nowrap flex-wrap gap-4">
         <div className="flex items-center gap-4 flex-wrap">
           <label htmlFor="jsonFile">

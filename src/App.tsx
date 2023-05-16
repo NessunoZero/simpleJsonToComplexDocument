@@ -26,7 +26,7 @@ function App() {
   return (
     <>
       {!showPrintable && (
-        <div className="w-auto h-screen flex border-box border border-green-700">
+        <div className="w-screen h-screen flex border-box border border-green-700">
           <JSONManager
             content={content}
             setContent={setContent}
