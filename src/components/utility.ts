@@ -15,10 +15,13 @@ export type DataType = {
   [key: string]: string;
 };
 
+export type ExtendedDataType = {
+  [key: string]: string | ContentType[];
+};
+
 export type ReuseStructureItem = {
   type: string;
   data: DataType;
-  children?: ReuseStructureItem[];
 };
 
 export type StructureType = {
@@ -32,7 +35,7 @@ export type StructureType = {
 
 export type ContentType = {
   type: string;
-  data: DataType;
+  data?: ExtendedDataType;
 };
 
 export type ValidJSON = {
@@ -47,13 +50,45 @@ export const initialJSON: ValidJSON = {
   contents: [
     {
       type: "title",
-      data: { content: "Awesome params managment" },
+      data: {
+        content:
+          "Until now this default document is all provided documentation",
+      },
     },
     {
       type: "twoSides",
       data: {
         left: "test left",
         right: "test right",
+      },
+    },
+    {
+      type: "justifyBetween",
+      data: {
+        children: [
+          { type: "oneChild", data: { content: "left" } },
+          { type: "oneChild", data: { content: "center" } },
+          { type: "oneChild", data: { content: "right" } },
+        ],
+      },
+    },
+    {
+      type: "titleLeftRight",
+      data: {
+        title: "test componible component",
+        left: "test to left",
+        right: "test to right",
+      },
+    },
+    {
+      type: "composableTitle",
+      data: {
+        title: "test title with composable",
+        children: [
+          { type: "oneChild", data: { content: "left" } },
+          { type: "oneChild", data: { content: "center" } },
+          { type: "oneChild", data: { content: "right" } },
+        ],
       },
     },
   ],
@@ -80,6 +115,40 @@ export const initialJSON: ValidJSON = {
     oneChild: {
       tag: "p",
       className: "capitalize",
+    },
+    justifyBetween: {
+      tag: "div",
+      className: "w-full flex items-center justify-between",
+    },
+    titleLeftRight: {
+      tag: "div",
+      className: "w-full flex flex-col items-center gap-4",
+      data: ["title", "left", "right"],
+      children: [
+        {
+          type: "title",
+          data: { content: "title" },
+        },
+        {
+          type: "twoSides",
+          data: { left: "left", right: "right" },
+        },
+      ],
+    },
+    composableTitle: {
+      tag: "div",
+      className: "w-full flex flex-col items-center gap-4",
+      data: ["title", "children"],
+      children: [
+        {
+          type: "title",
+          data: { content: "title" },
+        },
+        {
+          type: "justifyBetween",
+          data: { children: "children" },
+        },
+      ],
     },
   },
   data: {},
