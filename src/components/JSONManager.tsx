@@ -1,7 +1,12 @@
 import VanillaJSONEditor from "./VanillaJSONEditor";
-import { Content, JSONContent, TextContent } from "vanilla-jsoneditor";
-import { ValidJSON, initialJSON } from "./utility";
-import { Button, buttonClassName } from "./Button";
+import {
+  Content,
+  JSONContent,
+  JSONValue,
+  TextContent,
+} from "vanilla-jsoneditor";
+import { ValidJSON, buttonClassName, initialJSON } from "./utility";
+import { Button } from "./Button";
 
 export const JSONManager = ({
   content,
@@ -17,18 +22,19 @@ export const JSONManager = ({
   setContentObj: (content: ValidJSON) => void;
 }) => {
   const onClickDownload = () => {
-    var data =
+    const data =
       "json" in content
         ? JSON.stringify((content as JSONContent)?.json, undefined, 2)
         : (content as TextContent).text;
     const blob = new Blob([data], { type: "application/json" });
     const href = URL.createObjectURL(blob);
-    var a = document.createElement("a");
+    const a = document.createElement("a");
     a.setAttribute("href", href);
     a.setAttribute(
       "download",
-      (((content as JSONContent)?.json as any)?.["title"] ?? "myTemplate") +
-        ".json"
+      (((content as JSONContent)?.json as { [key: string]: JSONValue })?.[
+        "title"
+      ] ?? "myTemplate") + ".json"
     );
 
     document.body.appendChild(a);
@@ -41,9 +47,7 @@ export const JSONManager = ({
       <div className="w-full border border-orange-700 flex items-center justify-between py-4 px-6 whitespace-nowrap flex-wrap gap-4">
         <div className="flex items-center gap-4 flex-wrap">
           <label htmlFor="jsonFile">
-            <div className={buttonClassName}>
-              Upload JSON
-            </div>
+            <div className={buttonClassName}>Upload JSON</div>
           </label>
           <input
             id="jsonFile"
@@ -72,9 +76,7 @@ export const JSONManager = ({
             accept="application/JSON"
           />
           <label htmlFor="imgFile">
-            <div className={buttonClassName}>
-              Upload Image
-            </div>
+            <div className={buttonClassName}>Upload Image</div>
           </label>
           <input
             id="imgFile"

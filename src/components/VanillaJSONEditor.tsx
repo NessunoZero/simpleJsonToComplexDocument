@@ -1,9 +1,9 @@
 import { JSONEditor, JSONEditorPropsOptional } from "vanilla-jsoneditor";
 import { useEffect, useRef, useState } from "react";
 
-export interface MyJSONEditorProps extends JSONEditorPropsOptional {}
-
-export default function SvelteJSONEditor({ ...props }: MyJSONEditorProps) {
+export default function SvelteJSONEditor({
+  ...props
+}: JSONEditorPropsOptional) {
   const refContainer = useRef(null);
   const [editor, setEditor] = useState<JSONEditor | undefined>(undefined);
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function SvelteJSONEditor({ ...props }: MyJSONEditorProps) {
   }, []);
 
   useEffect(() => {
-    if (!!editor) {
+    if (editor) {
       editor.updateProps(props);
     }
   }, [props]);

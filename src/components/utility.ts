@@ -1,3 +1,6 @@
+export const buttonClassName =
+  "border border-purple-700 p-2 cursor-pointer rounded-full";
+
 export type TagType =
   | "h1"
   | "h2"

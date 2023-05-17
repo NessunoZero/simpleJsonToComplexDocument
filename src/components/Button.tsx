@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
-
-export const buttonClassName = "border border-purple-700 p-2 cursor-pointer rounded-full";
+import { buttonClassName } from "./utility";
 
 export const Button = ({
   onClick,
